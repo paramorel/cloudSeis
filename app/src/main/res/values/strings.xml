@@ -2,4 +2,15 @@
     <string name="app_name">cloudSeis</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="login">Логин</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="organization">Организация</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="map">Карта</string>
+    <string name="registrars">Регистраторы</string>
+    <string name="settings">Настройки</string>
 </resources>
