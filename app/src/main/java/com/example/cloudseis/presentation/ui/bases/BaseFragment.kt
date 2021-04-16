@@ -2,6 +2,7 @@ package com.example.cloudseis.presentation.ui.bases
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseReposit
         binding = getFragmentBinding(inflater, container)
         val factory = ViewModelFactory(getFragmentRepository())
         viewModel = ViewModelProvider(this, factory).get(getViewModel())
-
+        Log.i("BASE FRAGMENT", viewModel.toString())
         //lifecycleScope.launch { userPreferences.authToken.first() }
 
         return binding.root

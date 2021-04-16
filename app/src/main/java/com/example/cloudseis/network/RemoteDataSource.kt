@@ -1,5 +1,6 @@
 package com.example.cloudseis.network
 
+import android.util.Log
 import com.example.cloudseis.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -23,6 +24,7 @@ class RemoteDataSource {
                         }.build())
                     }.also { client ->
                         if (BuildConfig.DEBUG) {
+                            Log.i("FROM REMOTE DATA ", "zapros");
                             val logging = HttpLoggingInterceptor()
                             logging.apply { logging.level = HttpLoggingInterceptor.Level.BODY }
                             client.addInterceptor(logging)

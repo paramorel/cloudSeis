@@ -15,17 +15,18 @@ class AuthActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this, R.id.fragment)
 
-        if (intent.action.toString() == "android.intent.action.VIEW"){
-            val uri  = intent.data
-            val token = uri?.getQueryParameter("token")
-
-            val bundle = Bundle()
-            bundle.putString("token", token)
-            navController?.navigate(R.id.registrationFragment, bundle)
-        }
+//        if (intent.action.toString() == "android.intent.action.VIEW"){
+//            val uri  = intent.data
+//            val token = uri?.getQueryParameter("token")
+//
+//            val bundle = Bundle()
+//            bundle.putString("token", token)
+//            navController?.navigate(R.id.registrationFragment, bundle)
+//        }
     }
 
-    fun registrationFragmentEnabled(){
+
+    fun registerFragmentEnabled(){
         navController?.navigate(R.id.registrationFragment)
     }
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">cloudSeis</string>
-    <string name="sign_in">Sign in</string>
-    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Авторизация</string>
+    <string name="sign_up">Регистрация</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
     <string name="username">Имя пользователя</string>

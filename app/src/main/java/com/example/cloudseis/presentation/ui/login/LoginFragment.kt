@@ -9,58 +9,67 @@ import com.example.cloudseis.data.repository.AuthRepository
 import com.example.cloudseis.databinding.FragmentLoginBinding
 import com.example.cloudseis.network.AuthApi
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
+import com.example.cloudseis.presentation.ui.enable
+import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
+import com.example.cloudseis.presentation.ui.startNewActivity
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /////////////binding.progressbar.visible(false)
-        ////////////////binding.buttonSignIn.enable(false)
+        binding.signInButton.enable(false)
 
-//        binding.editTextTextPassword.addTextChangedListener {
-//            val email = binding.editTextTextEmailAddress.text.toString().trim()
-//            binding.buttonSignIn.enable(email.isNotEmpty() && it.toString().isNotEmpty())
-//        }
-//
-////        binding.buttonSignIn.setOnClickListener {
-////            login()
-////        }
-//
-//        binding.buttonSignUp.setOnClickListener {
-//            register()
-//        }
-//    }
-//
-////    private fun login() {
-////        val email = binding.editTextTextEmailAddress.text.toString().trim()
-////        val password = binding.editTextTextPassword.text.toString().trim()
-////        val loginInfo = LoginInfo(email, password)
-////
-////        viewModel.login(loginInfo)
-////    }
-//
-//    private fun register() {
-//        activity?.let {
-//            (it as AuthActivity).registerFragmentEnabled()
-//        }
-//    }
-//
-//    override fun getViewModel() = AuthViewModel::class.java
-//
-//    override fun getFragmentBinding(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?
-//    ) = FragmentLoginBinding.inflate(inflater, container, false)
-//
-//    override fun getFragmentRepository() =
-//        AuthRepository(remoteDataSource.buildApi(AuthApi::class.java), userPreferences)
-//
-//    fun failedLogin(message: String) {
-//        val toast = Toast.makeText(context, message,
-//            Toast.LENGTH_LONG)
-//        toast.show()
-//        binding.editTextTextPassword.setText("")
+//            viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+//            binding.progressbar.visible(it is Resource.Loading)
+//            when (it) {
+//                is Resource.Success -> {
+//                    lifecycleScope.launch {
+//                        viewModel.saveAuthToken(it.value.user.access_token!!)
+//                        requireActivity().startNewActivity(NavigationActivity::class.java)
+//                    }
+//                }
+//                is Resource.Failure -> handleApiError(it) { login() }
+//            }
+//        })
+
+        binding.signInButton.setOnClickListener {
+            login()
+        }
+
+        binding.signUpButton.setOnClickListener {
+            register()
+        }
+    }
+
+    private fun register() {
+        activity?.let {
+            (it as AuthActivity).registerFragmentEnabled()
+        }
+    }
+
+    private fun login(){
+//        val login = binding.editTextLogin.text.toString().trim()
+//        val password = binding.editTextPassword.text.toString().trim()
+//        val loginInfo = LoginInfo(login, password)
+//        viewModel.login(loginInfo)
+//        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+//            when (it){
+//                is Resource.Success ->{
+//                    lifecycleScope.launch {
+////                        viewModel.saveAuthToken(it.value.token!!) ///удалить при тестировании
+//                        requireActivity().startNewActivity(NavigationActivity::class.java)
+//                    }
+//                }
+//                is Resource.Failure -> {
+//                    val toast = Toast.makeText(context, "Проверьте правильность введенных данных",
+//                        Toast.LENGTH_LONG)
+//                    toast.show()
+//                    binding.editTextTextPassword.setText("")
+//                }
+//            }
+//        })
+
     }
 
     override fun getViewModel() = AuthViewModel::class.java

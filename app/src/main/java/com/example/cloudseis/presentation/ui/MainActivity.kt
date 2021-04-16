@@ -9,6 +9,7 @@ import androidx.lifecycle.asLiveData
 import com.example.cloudseis.data.UserPreferences
 import com.example.cloudseis.presentation.ui.login.AuthActivity
 import com.example.cloudseis.presentation.ui.map.MapActivity
+import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 //            startNewActivity(activity)
 //        })
 
-        startNewActivity(MapActivity::class.java)
+        startNewActivity(NavigationActivity::class.java)
     }
 }
 

@@ -3,16 +3,19 @@
     <item
         android:id="@+id/navigation_map"
         android:enabled="true"
+        android:icon="@drawable/earth"
         android:title="@string/map" />
 
     <item
         android:id="@+id/navigation_registrars"
         android:enabled="true"
+        android:icon="@drawable/lamp"
         android:title="@string/registrars" />
 
     <item
         android:id="@+id/navigation_settings"
         android:enabled="true"
+        android:icon="@drawable/settings"
         android:title="@string/settings" />
 
 </menu>

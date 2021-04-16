@@ -9,4 +9,8 @@ class RegistrarsRepository (
     private val preferences: UserPreferences
     ) : BaseRepository(){
 
+
+    suspend fun registrarsByNetworkId(networkId: Long) = safeApiCall {
+        api.registrarsByNetworkId(networkId)
+    }
 }
