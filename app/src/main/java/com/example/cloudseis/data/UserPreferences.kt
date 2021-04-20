@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.map
 class UserPreferences(
     context: Context
 ) {
-    private val applicationContext = context.applicationContext
-    //private val dataStore: DataStore<Preferences>
-
+//    private val applicationContext = context.applicationContext
+//    private val dataStore: DataStore<Preferences>
+//
 //    init {
 //
 //        dataStore = applicationContext.createDataStore(

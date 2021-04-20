@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 //            startNewActivity(activity)
 //        })
 
-        startNewActivity(NavigationActivity::class.java)
+        startNewActivity(AuthActivity::class.java)
     }
 }
 

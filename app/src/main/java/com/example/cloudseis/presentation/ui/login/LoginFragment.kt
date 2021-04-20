@@ -4,21 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.cloudseis.data.json.LoginInfo
 import com.example.cloudseis.data.repository.AuthRepository
 import com.example.cloudseis.databinding.FragmentLoginBinding
 import com.example.cloudseis.network.AuthApi
+import com.example.cloudseis.network.Resource
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.enable
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
 import com.example.cloudseis.presentation.ui.startNewActivity
+import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.signInButton.enable(false)
+        binding.signInButton.enable(true)
 
 //            viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
 //            binding.progressbar.visible(it is Resource.Loading)
@@ -49,26 +53,26 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
     }
 
     private fun login(){
-//        val login = binding.editTextLogin.text.toString().trim()
-//        val password = binding.editTextPassword.text.toString().trim()
-//        val loginInfo = LoginInfo(login, password)
-//        viewModel.login(loginInfo)
-//        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
-//            when (it){
-//                is Resource.Success ->{
-//                    lifecycleScope.launch {
-////                        viewModel.saveAuthToken(it.value.token!!) ///удалить при тестировании
-//                        requireActivity().startNewActivity(NavigationActivity::class.java)
-//                    }
-//                }
-//                is Resource.Failure -> {
-//                    val toast = Toast.makeText(context, "Проверьте правильность введенных данных",
-//                        Toast.LENGTH_LONG)
-//                    toast.show()
-//                    binding.editTextTextPassword.setText("")
-//                }
-//            }
-//        })
+        val login = binding.editTextLogin.text.toString().trim()
+        val password = binding.editTextPassword.text.toString().trim()
+        val loginInfo = LoginInfo(login, password)
+        viewModel.login(loginInfo)
+        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+            when (it){
+                is Resource.Success ->{
+                    lifecycleScope.launch {
+//                        viewModel.saveAuthToken(it.value.token!!) ///удалить при тестировании
+                        requireActivity().startNewActivity(NavigationActivity::class.java)
+                    }
+                }
+                is Resource.Failure -> {
+                    val toast = Toast.makeText(context, "Проверьте правильность введенных данных",
+                        Toast.LENGTH_LONG)
+                    toast.show()
+                    binding.textPassword.setText("")
+                }
+            }
+        })
 
     }
 
