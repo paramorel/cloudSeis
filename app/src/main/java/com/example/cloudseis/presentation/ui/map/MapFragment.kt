@@ -1,5 +1,6 @@
 package com.example.cloudseis.presentation.ui.map
 
+import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,7 +28,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import jxl.Sheet
+import jxl.Workbook
 import kotlinx.coroutines.launch
+import java.nio.channels.AsynchronousServerSocketChannel.open
+
 
 class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, FragmentMapBinding, RegistrarsRepository>(){
 
@@ -158,11 +163,11 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
             })
         })
 
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(54.00, 48.00)).title("163 str")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.earthquake))
-        )
+//        googleMap.addMarker(//тестировала иконки, можно удалить
+//            MarkerOptions()
+//                .position(LatLng(54.00, 48.00)).title("163 str")
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.earthquake))
+//        )
 
     }
 
@@ -208,6 +213,34 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
         Log.i("Map Fragment", "on map ready")
         googleMap.mapType = 4
         loadNetworks(googleMap)
+
+        parseXlsFile(googleMap)
     }
 
+    private fun parseXlsFile(googleMap: GoogleMap) {
+        //val assetManager = activity?.assets
+        val inputStream = context?.assets?.open("The_Human_Induced_Earthquake_Database.xls")
+        val workBook: Workbook = Workbook.getWorkbook(inputStream)
+        val sheet = workBook.getSheet(0)
+        val rowCount = sheet.rows
+        val columnCount = sheet.columns
+
+        for (i in 1..100) {
+            var cellLat = sheet.getCell(4, i)
+            var cellLon = sheet.getCell(5, i)
+
+            var lat = cellLat.contents.replace(",", ".")
+            var lon = cellLon.contents.replace(",", ".")
+
+            Log.i("lat ", lat)
+            Log.i("lon", lon)
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(LatLng(lat.toDouble(),
+                                    lon.toDouble()))
+                    .title("Cause: " + sheet.getCell(2, i).contents.toString())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.earthquake))
+            )
+        }
+    }
 }
