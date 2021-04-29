@@ -1,6 +1,7 @@
 package com.example.cloudseis.presentation.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -27,7 +28,9 @@ class AuthActivity : AppCompatActivity() {
 
 
     fun registerFragmentEnabled(){
+        Log.i("auth activity", "before register fragment enabled")
         navController?.navigate(R.id.registrationFragment)
+        Log.i("auth activity", "after register fragment enabled")
     }
 
     fun loginFragmentEnabled(){

@@ -9,5 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.cloudseis.presentation.ui.map."
         android:label="fragment_home"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_login" />
+
+
 </navigation>

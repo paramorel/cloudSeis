@@ -6,10 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
 import com.example.cloudseis.R
+import com.example.cloudseis.data.UserPreferences
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
+import com.example.cloudseis.presentation.ui.login.AuthActivity
+import com.example.cloudseis.presentation.ui.login.LoginFragment
 import com.example.cloudseis.presentation.ui.map.MapFragment
 import com.example.cloudseis.presentation.ui.registrars.RegistrarsFragment
+import com.example.cloudseis.presentation.ui.startNewActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_navigation.*
 
@@ -18,13 +24,20 @@ class NavigationActivity : AppCompatActivity() {
     private var itemId: Int = 0
     private var fragments: MutableMap<Any, BaseFragment<*, *, *>> =
         HashMap()
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
+        userPreferences = UserPreferences(this)
+        userPreferences.authToken.asLiveData().observe(this, Observer {
+            val fragment = if (it == null) LoginFragment() else RegistrarsFragment()
+            openFragment(fragment)
+        })
 
-        openFragment(MapFragment())
+
+        //openFragment(LoginFragment())
 
         Log.i("NAVIGATION ACTIVITY: ", "onCreate");
         bottom_navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
@@ -64,10 +77,14 @@ class NavigationActivity : AppCompatActivity() {
                     Log.i("NAVIGATION ACTIVITY:", "open map fragment");
                     return@OnNavigationItemSelectedListener true
                 }
-//                R.id.navigation_registrars -> {
-//                    openFragment(RegistrarsFragment::class.java)
-//                    return@OnNavigationItemSelectedListener true
-//                }
+                R.id.navigation_auth -> {
+                    userPreferences.authToken.asLiveData().observe(this, Observer {
+                        Log.i("navigation auth", it.orEmpty())
+                        val fragment = if (it == null) LoginFragment() else RegistrarsFragment()
+                        openFragment(fragment)
+                    })
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             false
         }

@@ -15,14 +15,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val userPreferences = UserPreferences(this)
+        //val userPreferences = UserPreferences(this)
 
 //        userPreferences.authToken.asLiveData().observe(this, Observer {
 //            val activity = if (it == null) AuthActivity::class.java else MapActivity::class.java
 //            startNewActivity(activity)
 //        })
 
-        startNewActivity(AuthActivity::class.java)
+        startNewActivity(NavigationActivity::class.java)
     }
 }
 

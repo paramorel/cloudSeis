@@ -24,8 +24,8 @@ class AuthRepository(
     }
 
 
-//    suspend fun saveAuthToken(token: String) {
-//        preferences.saveAuthToken(token)
-//    }
+    suspend fun saveAuthToken(token: String) {
+        preferences.saveAuthToken(token)
+    }
 
 }

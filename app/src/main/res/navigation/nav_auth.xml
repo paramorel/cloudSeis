@@ -9,7 +9,6 @@
         android:id="@+id/loginFragment"
         android:name="com.example.cloudseis.presentation.ui.login.LoginFragment"
         android:label="fragment_registration"
-
         tools:layout="@layout/fragment_login" />
 
     <fragment

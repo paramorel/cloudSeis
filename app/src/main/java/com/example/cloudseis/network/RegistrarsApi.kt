@@ -2,12 +2,10 @@ package com.example.cloudseis.network
 
 import com.example.cloudseis.data.json.RegistrationInfo
 import com.example.cloudseis.data.responses.AllNetworksResponse
+import com.example.cloudseis.data.responses.PrivateAndPublicNetworksResponse
 import com.example.cloudseis.data.responses.RegistrarByIdResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface RegistrarsApi {
     @POST("networks/all")
@@ -18,4 +16,8 @@ interface RegistrarsApi {
         @Path("id") networkId: Long
     ) : List<RegistrarByIdResponse>;
 
+    @GET("/networks/all/available?")
+    suspend fun privateAndPublicNetworks(
+        @Header("Authorization") token : String
+    ) : PrivateAndPublicNetworksResponse
 }

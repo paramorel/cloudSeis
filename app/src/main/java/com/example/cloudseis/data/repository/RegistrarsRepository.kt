@@ -13,4 +13,8 @@ class RegistrarsRepository (
     suspend fun registrarsByNetworkId(networkId: Long) = safeApiCall {
         api.registrarsByNetworkId(networkId)
     }
+
+    suspend fun getPublicAndPrivateNetworks(token: String) = safeApiCall {
+        api.privateAndPublicNetworks(token)
+    }
 }

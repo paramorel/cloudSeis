@@ -1,6 +1,7 @@
 package com.example.cloudseis.presentation.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,7 +15,9 @@ import com.example.cloudseis.network.Resource
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.enable
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
+import com.example.cloudseis.presentation.ui.registrars.RegistrarsFragment
 import com.example.cloudseis.presentation.ui.startNewActivity
+import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
@@ -48,9 +51,15 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
 
     private fun register() {
         activity?.let {
-            (it as AuthActivity).registerFragmentEnabled()
+            Log.i("login fragment", "register")
+            if (it is NavigationActivity){
+                (it as NavigationActivity).openFragment(RegisterFragment())
+            } else{
+                (it as AuthActivity).registerFragmentEnabled()
+            }
         }
     }
+
 
     private fun login(){
         val login = binding.editTextLogin.text.toString().trim()
@@ -61,7 +70,11 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
             when (it){
                 is Resource.Success ->{
                     lifecycleScope.launch {
-//                        viewModel.saveAuthToken(it.value.token!!) ///удалить при тестировании
+                        activity.let {
+                            (it as NavigationActivity).openFragment(RegistrarsFragment());
+                        }
+                        viewModel.saveAuthToken(it.value.token!!) ///удалить при тестировании
+                        Log.i("login fragment", it.value.token)
                         requireActivity().startNewActivity(NavigationActivity::class.java)
                     }
                 }

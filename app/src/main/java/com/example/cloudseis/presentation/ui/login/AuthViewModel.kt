@@ -29,9 +29,6 @@ class AuthViewModel(
     val registerResponse: LiveData<Resource<RegisterResponce>>
         get() = _registerResponse
 
-
-
-
     fun login(loginInfo: LoginInfo) = viewModelScope.launch {
         _loginResponse.value = Resource.Loading
         _loginResponse.value = repository.login(loginInfo)
@@ -46,4 +43,9 @@ class AuthViewModel(
 //        _registerConfirmResponse.value = Resource.Loading
 //        _registerConfirmResponse.value = repository.registerConfirm(registerConfirmInfo)
 //    }
+
+    suspend fun saveAuthToken(token: String) {
+        repository.saveAuthToken(token)
+    }
+
 }

@@ -10,7 +10,8 @@
     <string name="last_name">Фамилия</string>
     <string name="organization">Организация</string>
     <string name="confirm_password">Подтвердите пароль</string>
-    <string name="map">Карта</string>
+    <string name="map">Общая карта</string>
     <string name="registrars">Регистраторы</string>
     <string name="settings">Настройки</string>
+    <string name="user">Моя карта</string>
 </resources>

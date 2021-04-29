@@ -14,6 +14,7 @@ import com.example.cloudseis.databinding.FragmentLoginBinding
 import com.example.cloudseis.databinding.FragmentRegistrationBinding
 import com.example.cloudseis.network.Resource
 import com.example.cloudseis.presentation.ui.handleApiError
+import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
 
 
 class RegisterFragment : BaseFragment<AuthViewModel, FragmentRegistrationBinding, AuthRepository>() {
@@ -107,7 +108,11 @@ class RegisterFragment : BaseFragment<AuthViewModel, FragmentRegistrationBinding
 
     private fun login() {
         activity?.let {
-            (it as AuthActivity).loginFragmentEnabled()
+            if (it is NavigationActivity) {
+                (it as NavigationActivity).openFragment(LoginFragment())
+            } else {
+                (it as AuthActivity).loginFragmentEnabled()
+            }
         }
     }
 

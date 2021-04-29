@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.example.cloudseis.network.Resource
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.login.LoginFragment
+import com.example.cloudseis.presentation.ui.login.RegisterFragment
 
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
@@ -45,13 +46,27 @@ fun Fragment.handleApiError(
             "Please check your internet connection",
             retry
         )
-        failure.errorCode == 401 -> {
-            if (this is LoginFragment) {
-                requireView().snackbar("You've entered incorrect email or password")
-            } else {
-                //(this as BaseFragment<*, *, *>).logout()
+//        failure.errorCode == 401 -> {
+//            if (this is LoginFragment) {
+//                requireView().snackbar("You've entered incorrect email or password")
+//            }
+//        }
+        failure.errorCode == 400 -> {
+            if (this is RegisterFragment) {
+                requireView().snackbar("Пользователь с таким логином уже существует")
             }
         }
+//        failure.errorCode == 404 -> {
+//            if (this is LoginFragment) {
+//                requireView().snackbar("Пользователь с таким логином не найден")
+//            }
+//        }
+        failure.errorCode == 403 -> {
+            if (this is LoginFragment) {
+                requireView().snackbar("Вы ввели неверный логин или пароль")
+            }
+        }
+
         else -> {
             val error = failure.errorBody?.string().toString()
             requireView().snackbar(error)
