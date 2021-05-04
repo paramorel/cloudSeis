@@ -2,7 +2,6 @@ package com.example.cloudseis.presentation.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -10,9 +9,8 @@ import com.example.cloudseis.data.json.RegistrationInfo
 import com.example.cloudseis.data.repository.AuthRepository
 import com.example.cloudseis.network.AuthApi
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
-import com.example.cloudseis.databinding.FragmentLoginBinding
 import com.example.cloudseis.databinding.FragmentRegistrationBinding
-import com.example.cloudseis.network.Resource
+import com.example.cloudseis.network.Answer
 import com.example.cloudseis.presentation.ui.handleApiError
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
 
@@ -84,7 +82,7 @@ class RegisterFragment : BaseFragment<AuthViewModel, FragmentRegistrationBinding
         viewModel.register(registrationInfo)
         viewModel.registerResponse.observe(viewLifecycleOwner, Observer {
             when (it){
-                is Resource.Success -> {
+                is Answer.Success -> {
                     val toast = Toast.makeText(context, "Успешная регистрация. Необходимо авторизироваться",
                         Toast.LENGTH_LONG)
                     toast.show()
@@ -97,7 +95,7 @@ class RegisterFragment : BaseFragment<AuthViewModel, FragmentRegistrationBinding
 
                     login()
                 }
-                is Resource.Failure ->handleApiError(it) {
+                is Answer.Failure ->handleApiError(it) {
                     val toast = Toast.makeText(context, "Произошла ошибка. Попробуйте позже",
                         Toast.LENGTH_LONG)
                     toast.show()

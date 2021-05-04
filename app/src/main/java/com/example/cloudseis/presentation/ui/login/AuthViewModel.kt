@@ -2,7 +2,6 @@ package com.example.cloudseis.presentation.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.example.cloudseis.data.json.LoginInfo
@@ -10,9 +9,8 @@ import com.example.cloudseis.data.json.RegistrationInfo
 import com.example.cloudseis.data.repository.AuthRepository
 import com.example.cloudseis.data.responses.LoginResponse
 import com.example.cloudseis.data.responses.RegisterResponce
-import com.example.cloudseis.network.Resource
+import com.example.cloudseis.network.Answer
 import com.example.cloudseis.presentation.ui.bases.BaseViewModel
-import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
 
 
 class AuthViewModel(
@@ -20,22 +18,22 @@ class AuthViewModel(
 ) : BaseViewModel(repository) {
 
 
-    private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
-    val loginResponse: LiveData<Resource<LoginResponse>>
+    private val _loginResponse: MutableLiveData<Answer<LoginResponse>> = MutableLiveData()
+    val loginResponse: LiveData<Answer<LoginResponse>>
         get() = _loginResponse
 
 
-    private val _registerResponse: MutableLiveData<Resource<RegisterResponce>> = MutableLiveData()
-    val registerResponse: LiveData<Resource<RegisterResponce>>
+    private val _registerResponse: MutableLiveData<Answer<RegisterResponce>> = MutableLiveData()
+    val registerResponse: LiveData<Answer<RegisterResponce>>
         get() = _registerResponse
 
     fun login(loginInfo: LoginInfo) = viewModelScope.launch {
-        _loginResponse.value = Resource.Loading
+        _loginResponse.value = Answer.Loading
         _loginResponse.value = repository.login(loginInfo)
     }
 
     fun register(registerInfo: RegistrationInfo) = viewModelScope.launch {
-        _registerResponse.value = Resource.Loading
+        _registerResponse.value = Answer.Loading
         _registerResponse.value = repository.register(registerInfo)
     }
 //
@@ -48,4 +46,7 @@ class AuthViewModel(
         repository.saveAuthToken(token)
     }
 
+    suspend fun logout(){
+        repository.logout()
+    }
 }

@@ -1,12 +1,10 @@
 package com.example.cloudseis.presentation.ui.map
 
-import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -17,21 +15,17 @@ import com.example.cloudseis.data.repository.RegistrarsRepository
 import com.example.cloudseis.data.responses.RegistrarByIdResponse
 import com.example.cloudseis.databinding.FragmentMapBinding
 import com.example.cloudseis.network.RegistrarsApi
-import com.example.cloudseis.network.Resource
+import com.example.cloudseis.network.Answer
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.bases.ViewModelFactory
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import jxl.Sheet
 import jxl.Workbook
 import kotlinx.coroutines.launch
-import java.nio.channels.AsynchronousServerSocketChannel.open
 
 
 class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, FragmentMapBinding, RegistrarsRepository>(){
@@ -56,7 +50,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
             viewModel.getPrivateAndPublicNetworks("Bearer " + it.orEmpty())
             viewModel.networks.observe(viewLifecycleOwner, Observer {
                 when (it) {
-                    is Resource.Success -> {
+                    is Answer.Success -> {
                         lifecycleScope.launch {
                             //Log.i("pr and pub netw success", it.value.publicNetworks.toString())
                             for (network in it.value.publicNetworks){//цикл по общим сетям
@@ -64,7 +58,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                                 viewModel.getRegistrarsByNetworkI(network.id.toLong())
                                 viewModel.registrars.observe(viewLifecycleOwner, Observer {
                                     when (it) {
-                                        is Resource.Success -> {
+                                        is Answer.Success -> {
                                             lifecycleScope.launch {
                                                 for (a in it.value!!){
                                                     var first = a.gpsN
@@ -91,12 +85,12 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                                                             .position(marker).title(text)
                                                             .icon(BitmapDescriptorFactory.fromResource(iconId))
                                                     )
-                                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 5.0f))
-                                                    Log.i("ANSWER", "move camera")
+//                                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 5.0f))
+//                                                    Log.i("ANSWER", "move camera")
                                                 }
                                             }
                                         }
-                                        is Resource.Failure -> {
+                                        is Answer.Failure -> {
                                             lifecycleScope.launch {
                                                 //Log.i("pr and pub netw", "jopa 2")
                                             }
@@ -109,7 +103,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                                 viewModel.getRegistrarsByNetworkI(network.id.toLong())
                                 viewModel.registrars.observe(viewLifecycleOwner, Observer {
                                     when (it) {
-                                        is Resource.Success -> {
+                                        is Answer.Success -> {
                                             lifecycleScope.launch {
                                                 for (a in it.value!!){
                                                     var first = a.gpsN
@@ -139,12 +133,12 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                                                             .position(marker).title(text)
                                                             .icon(BitmapDescriptorFactory.fromResource(iconId))
                                                     )
-                                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 5.0f))
-                                                    Log.i("ANSWER", "move camera")
+//                                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 5.0f))
+//                                                    Log.i("ANSWER", "move camera")
                                                 }
                                             }
                                         }
-                                        is Resource.Failure -> {
+                                        is Answer.Failure -> {
                                             lifecycleScope.launch {
                                                 Log.i("pr and pub netw", "jopa 2")
                                             }
@@ -154,7 +148,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                             }
                         }
                     }
-                    is Resource.Failure -> {//получаем нетворки
+                    is Answer.Failure -> {//получаем нетворки
                         lifecycleScope.launch {
                             Log.i("pr and pub netw", "jopa")
                         }
@@ -162,12 +156,6 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                 }
             })
         })
-
-//        googleMap.addMarker(//тестировала иконки, можно удалить
-//            MarkerOptions()
-//                .position(LatLng(54.00, 48.00)).title("163 str")
-//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.earthquake))
-//        )
 
     }
 
@@ -225,22 +213,34 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
         val rowCount = sheet.rows
         val columnCount = sheet.columns
 
-        for (i in 1..100) {
+        for (i in 1..140) {
             var cellLat = sheet.getCell(4, i)
             var cellLon = sheet.getCell(5, i)
 
             var lat = cellLat.contents.replace(",", ".")
             var lon = cellLon.contents.replace(",", ".")
 
-            Log.i("lat ", lat)
-            Log.i("lon", lon)
-            googleMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(lat.toDouble(),
-                                    lon.toDouble()))
-                    .title("Cause: " + sheet.getCell(2, i).contents.toString())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.earthquake))
-            )
+//            Log.i("lat ", lat)
+//            Log.i("lon", lon)
+
+            var marker = MarkerOptions()
+                .position(LatLng(lat.toDouble(),
+                    lon.toDouble()))
+                .title(sheet.getCell(2, i).contents.toString())
+                .snippet("Project name: " + sheet.getCell(3, i).contents.toString() + "\n" +
+                        "Tectonic setting: " + sheet.getCell(23, i).contents.toString() + "\n" +
+                        "Mmax: " + sheet.getCell(12, i).contents.toString() + "\n" +
+                        "Depth of Mmax (m): " + sheet.getCell(14, i).contents.toString() + "\n" +
+                        "Date of Mmax: " +  sheet.getCell(15, i).contents.toString() + "\n" +
+                        "Depth of most seismicity (m): " + sheet.getCell(20, i).contents.toString() + "\n"
+                )
+
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.earthquake))
+
+            googleMap.addMarker(marker)
+            googleMap.setInfoWindowAdapter(this.context?.let { CustomInfoWindowForGoogleMap(it) })
         }
     }
+
 }
+

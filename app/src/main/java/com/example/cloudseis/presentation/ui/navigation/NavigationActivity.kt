@@ -15,6 +15,7 @@ import com.example.cloudseis.presentation.ui.login.AuthActivity
 import com.example.cloudseis.presentation.ui.login.LoginFragment
 import com.example.cloudseis.presentation.ui.map.MapFragment
 import com.example.cloudseis.presentation.ui.registrars.RegistrarsFragment
+import com.example.cloudseis.presentation.ui.settings.SettingsFragment
 import com.example.cloudseis.presentation.ui.startNewActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_navigation.*
@@ -83,6 +84,11 @@ class NavigationActivity : AppCompatActivity() {
                         val fragment = if (it == null) LoginFragment() else RegistrarsFragment()
                         openFragment(fragment)
                     })
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_settings -> {
+                    openFragment(SettingsFragment())
+                    Log.i("NAVIGATION ACTIVITY:", "open settings fragment");
                     return@OnNavigationItemSelectedListener true
                 }
             }

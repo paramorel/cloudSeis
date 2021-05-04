@@ -1,5 +1,6 @@
 package com.example.cloudseis.data.repository
 
+import android.util.Log
 import com.example.cloudseis.data.UserPreferences
 import com.example.cloudseis.data.json.LoginInfo
 import com.example.cloudseis.data.json.RegistrationInfo
@@ -28,4 +29,12 @@ class AuthRepository(
         preferences.saveAuthToken(token)
     }
 
+    suspend fun logout(){
+        if (preferences.authToken != null){
+            preferences.logout()
+            Log.i("AuthRepository", "smth happens")
+        } else {
+            Log.i("AuthRepository", "nothing happens")
+        }
+    }
 }

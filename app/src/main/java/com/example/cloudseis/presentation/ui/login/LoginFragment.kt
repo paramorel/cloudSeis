@@ -11,13 +11,12 @@ import com.example.cloudseis.data.json.LoginInfo
 import com.example.cloudseis.data.repository.AuthRepository
 import com.example.cloudseis.databinding.FragmentLoginBinding
 import com.example.cloudseis.network.AuthApi
-import com.example.cloudseis.network.Resource
+import com.example.cloudseis.network.Answer
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.enable
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
 import com.example.cloudseis.presentation.ui.registrars.RegistrarsFragment
 import com.example.cloudseis.presentation.ui.startNewActivity
-import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.coroutines.launch
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
@@ -68,7 +67,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         viewModel.login(loginInfo)
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
             when (it){
-                is Resource.Success ->{
+                is Answer.Success ->{
                     lifecycleScope.launch {
                         activity.let {
                             (it as NavigationActivity).openFragment(RegistrarsFragment());
@@ -78,7 +77,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
                         requireActivity().startNewActivity(NavigationActivity::class.java)
                     }
                 }
-                is Resource.Failure -> {
+                is Answer.Failure -> {
                     val toast = Toast.makeText(context, "Проверьте правильность введенных данных",
                         Toast.LENGTH_LONG)
                     toast.show()

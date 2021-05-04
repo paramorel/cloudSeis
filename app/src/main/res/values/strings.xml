@@ -14,4 +14,6 @@
     <string name="registrars">Регистраторы</string>
     <string name="settings">Настройки</string>
     <string name="user">Моя карта</string>
+    <string name="exit">Выйти из аккаунта</string>
+    <string name="account">Аккаунт</string>
 </resources>

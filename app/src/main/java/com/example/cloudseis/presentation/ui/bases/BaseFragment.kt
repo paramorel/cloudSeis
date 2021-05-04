@@ -8,16 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.cloudseis.data.UserPreferences
 import com.example.cloudseis.data.repository.BaseRepository
-import com.example.cloudseis.network.RemoteDataSource
-import com.example.cloudseis.network.UserApi
-import com.example.cloudseis.presentation.ui.login.AuthActivity
+import com.example.cloudseis.network.RetrofitClient
 import com.example.cloudseis.presentation.ui.startNewActivity
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 
 abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseRepository> : Fragment() {
@@ -25,7 +20,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseReposit
     protected lateinit var userPreferences: UserPreferences
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
-    protected val remoteDataSource = RemoteDataSource()
+    protected val remoteDataSource = RetrofitClient()
 
 
     override fun onCreateView(
