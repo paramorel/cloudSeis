@@ -2,13 +2,13 @@ package com.example.cloudseis.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.createDataStore
 import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserPreferences(
+class Preferences(
     context: Context
 ) {
     private val applicationContext = context.applicationContext

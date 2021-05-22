@@ -7,7 +7,7 @@ import com.example.cloudseis.data.responses.RegistrarByIdResponse
 import retrofit2.Call
 import retrofit2.http.*
 
-interface RegistrarsApi {
+interface StationsApi {
     @POST("networks/all")
     suspend fun allNetworks() : AllNetworksResponse;
 

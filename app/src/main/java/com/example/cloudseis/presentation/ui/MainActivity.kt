@@ -1,19 +1,18 @@
 package com.example.cloudseis.presentation.ui
 
 
+import android.content.Intent
 import com.example.cloudseis.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
-import com.example.cloudseis.data.UserPreferences
-import com.example.cloudseis.presentation.ui.login.AuthActivity
-import com.example.cloudseis.presentation.ui.map.MapActivity
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
+import com.example.cloudseis.services.EventCheckService
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //title =
+        startService(Intent(this, EventCheckService::class.java))
         setContentView(R.layout.activity_main)
         //val userPreferences = UserPreferences(this)
 

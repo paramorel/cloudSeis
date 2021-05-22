@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.cloudseis.R
-import com.example.cloudseis.data.UserPreferences
+import com.example.cloudseis.data.Preferences
 import com.example.cloudseis.data.repository.RegistrarsRepository
 import com.example.cloudseis.data.responses.RegistrarByIdResponse
 import com.example.cloudseis.databinding.FragmentMapBinding
-import com.example.cloudseis.network.RegistrarsApi
+import com.example.cloudseis.network.StationsApi
 import com.example.cloudseis.network.Answer
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.bases.ViewModelFactory
@@ -38,14 +38,14 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
         val view = inflater.inflate(R.layout.fragment_map, container, false)
         var mapFragment = childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        userPreferences = UserPreferences(requireContext())
+        preferences = Preferences(requireContext())
         val factory = ViewModelFactory(getFragmentRepository())
         viewModel = ViewModelProvider(this, factory).get(getViewModel())
         return view
     }
 
     private fun loadNetworks(googleMap: GoogleMap) {
-        userPreferences.authToken.asLiveData().observe( this, Observer {
+        preferences.authToken.asLiveData().observe( this, Observer {
             Log.i("map fragment", it.orEmpty())
             viewModel.getPrivateAndPublicNetworks("Bearer " + it.orEmpty())
             viewModel.networks.observe(viewLifecycleOwner, Observer {
@@ -92,7 +92,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                                         }
                                         is Answer.Failure -> {
                                             lifecycleScope.launch {
-                                                //Log.i("pr and pub netw", "jopa 2")
+                                                //Log.i("pr and pub netw", " 2")
                                             }
                                         }
                                     }
@@ -140,7 +140,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                                         }
                                         is Answer.Failure -> {
                                             lifecycleScope.launch {
-                                                Log.i("pr and pub netw", "jopa 2")
+                                                Log.i("pr and pub netw", " 2")
                                             }
                                         }
                                     }
@@ -150,7 +150,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
                     }
                     is Answer.Failure -> {//получаем нетворки
                         lifecycleScope.launch {
-                            Log.i("pr and pub netw", "jopa")
+                            Log.i("pr and pub netw", "a")
                         }
                     }
                 }
@@ -195,7 +195,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
     ): FragmentMapBinding = FragmentMapBinding.inflate(inflater, container, false)
 
     override fun getFragmentRepository() =
-        RegistrarsRepository(remoteDataSource.buildApi(RegistrarsApi::class.java), userPreferences)
+        RegistrarsRepository(remoteDataSource.buildApi(StationsApi::class.java), preferences)
 
     override fun onMapReady(googleMap: GoogleMap) {
         Log.i("Map Fragment", "on map ready")

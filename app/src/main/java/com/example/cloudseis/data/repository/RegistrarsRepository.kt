@@ -1,12 +1,11 @@
 package com.example.cloudseis.data.repository
 
-import com.example.cloudseis.data.UserPreferences
-import com.example.cloudseis.network.AuthApi
-import com.example.cloudseis.network.RegistrarsApi
+import com.example.cloudseis.data.Preferences
+import com.example.cloudseis.network.StationsApi
 
 class RegistrarsRepository (
-    private val api: RegistrarsApi,
-    private val preferences: UserPreferences
+    private val api: StationsApi,
+    private val preferences: Preferences
     ) : BaseRepository(){
 
 

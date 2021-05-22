@@ -15,7 +15,7 @@ import com.example.cloudseis.network.Answer
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
 import com.example.cloudseis.presentation.ui.enable
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
-import com.example.cloudseis.presentation.ui.registrars.RegistrarsFragment
+import com.example.cloudseis.presentation.ui.stations.StationsFragment
 import com.example.cloudseis.presentation.ui.startNewActivity
 import kotlinx.coroutines.launch
 
@@ -70,7 +70,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
                 is Answer.Success ->{
                     lifecycleScope.launch {
                         activity.let {
-                            (it as NavigationActivity).openFragment(RegistrarsFragment());
+                            (it as NavigationActivity).openFragment(StationsFragment());
                         }
                         viewModel.saveAuthToken(it.value.token!!) ///удалить при тестировании
                         Log.i("login fragment", it.value.token)
@@ -96,6 +96,6 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
     ) = FragmentLoginBinding.inflate(inflater, container, false)
 
     override fun getFragmentRepository() =
-        AuthRepository(remoteDataSource.buildApi(AuthApi::class.java), userPreferences)
+        AuthRepository(remoteDataSource.buildApi(AuthApi::class.java), preferences)
 
 }

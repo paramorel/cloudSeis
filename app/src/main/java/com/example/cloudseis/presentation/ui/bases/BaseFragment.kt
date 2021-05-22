@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.example.cloudseis.data.UserPreferences
+import com.example.cloudseis.data.Preferences
 import com.example.cloudseis.data.repository.BaseRepository
 import com.example.cloudseis.network.RetrofitClient
 import com.example.cloudseis.presentation.ui.startNewActivity
@@ -17,7 +17,7 @@ import com.example.cloudseis.presentation.ui.startNewActivity
 
 abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseRepository> : Fragment() {
 
-    protected lateinit var userPreferences: UserPreferences
+    protected lateinit var preferences: Preferences
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
     protected val remoteDataSource = RetrofitClient()
@@ -28,7 +28,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseReposit
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        userPreferences = UserPreferences(requireContext())
+        preferences = Preferences(requireContext())
         binding = getFragmentBinding(inflater, container)
         val factory = ViewModelFactory(getFragmentRepository())
         viewModel = ViewModelProvider(this, factory).get(getViewModel())

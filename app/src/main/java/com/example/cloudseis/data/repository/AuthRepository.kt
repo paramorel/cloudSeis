@@ -1,14 +1,14 @@
 package com.example.cloudseis.data.repository
 
 import android.util.Log
-import com.example.cloudseis.data.UserPreferences
+import com.example.cloudseis.data.Preferences
 import com.example.cloudseis.data.json.LoginInfo
 import com.example.cloudseis.data.json.RegistrationInfo
 import com.example.cloudseis.network.AuthApi
 
 class AuthRepository(
     private val api: AuthApi,
-    private val preferences: UserPreferences
+    private val preferences: Preferences
 ) : BaseRepository() {
 
     suspend fun login(
