@@ -3,10 +3,10 @@ package com.example.cloudseis.data.repository
 import com.example.cloudseis.data.Preferences
 import com.example.cloudseis.network.StationsApi
 
-class RegistrarsRepository (
+class StationRepository (
     private val api: StationsApi,
     private val preferences: Preferences
-    ) : BaseRepository(){
+) : BaseRepository(){
 
 
 

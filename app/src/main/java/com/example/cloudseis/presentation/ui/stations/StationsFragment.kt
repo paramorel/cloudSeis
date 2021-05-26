@@ -5,35 +5,40 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cloudseis.R
 import com.example.cloudseis.data.repository.RegistrarsRepository
+import com.example.cloudseis.data.responses.RegistrarByIdResponse
 import com.example.cloudseis.databinding.FragmentStationsBinding
 import com.example.cloudseis.network.StationsApi
 import com.example.cloudseis.presentation.ui.bases.BaseFragment
-import com.example.cloudseis.presentation.ui.map.RegistrarsViewModel
+import kotlinx.android.synthetic.main.fragment_stations.*
 
-class StationsFragment : BaseFragment<RegistrarsViewModel, FragmentStationsBinding, RegistrarsRepository>(){
+
+class StationsFragment : BaseFragment<StationViewModel, FragmentStationsBinding, RegistrarsRepository>(){
     lateinit var recyclerView: RecyclerView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.e("onViewCreated before", "jkk")
+        viewModel.onViewCreated(preferences, this)
+        recyclerView = view.findViewById(R.id.main_recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        Log.e("onViewCreated after", "it.orEmpty()")
+        super.onViewCreated(view, savedInstanceState)
 
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_stations, container, false)
-        recyclerView = view.findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.layoutManager = LinearLayoutManager(view.context);
-        recyclerView.adapter = RandomNumListAdapter(1234);
-
-        return view;
     }
 
-    override fun getViewModel() = RegistrarsViewModel::class.java
+    fun setAdapter(stations: ArrayList<RegistrarByIdResponse>) {
+        val adapter =
+            StationAdapter(stations)
+
+        recyclerView.adapter = adapter
+        Log.i("set_adapter_station", stations.toString())
+    }
+
+    override fun getViewModel() = StationViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

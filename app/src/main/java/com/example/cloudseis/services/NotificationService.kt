@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.example.cloudseis.R
 import com.example.cloudseis.presentation.ui.MainActivity
 
-class EventCheckService : Service() {
+class NotificationService : Service() {
     private val channelId = "Notification from Service"
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
@@ -39,7 +39,7 @@ class EventCheckService : Service() {
         )
         val notification: Notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Новое событие cloudSeis")
-            .setContentText("Произошло землетрясение")
+            .setContentText("Станция #8 потеряла связь с сервером")
             .setSmallIcon(R.drawable.earth)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

@@ -31,7 +31,7 @@
         <activity android:name=".presentation.ui.navigation.NavigationActivity" />
         <activity android:name=".presentation.ui.login.AuthActivity" />
         
-        <service android:name="com.example.cloudseis.services.EventCheckService"
+        <service android:name="com.example.cloudseis.services.NotificationService"
             android:enabled="true"
             android:exported="true"
             android:process=":notificationprocess"/>

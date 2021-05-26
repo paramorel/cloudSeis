@@ -23,13 +23,14 @@ class RegistrarsViewModel(
         get() = _networks
 
     fun getPrivateAndPublicNetworks(token: String) = viewModelScope.launch {
-        Log.i("FROM REG VIEWMODEL", "get private and pub networks")
         _networks.value = Answer.Loading
         _networks.value = repository.getPublicAndPrivateNetworks(token)
+        Log.i("FROM REG VIEWMODEL", "get private and pub networks")
+
     }
 
     fun getRegistrarsByNetworkI(networkId : Long) = viewModelScope.launch {
-        Log.i("FROM REG VIEWMODEL", "gerReg")
+        //Log.i("FROM REG VIEWMODEL", "gerReg")
         _registrars.value = Answer.Loading
         _registrars.value = repository.registrarsByNetworkId(networkId)
     }

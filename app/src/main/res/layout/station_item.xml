@@ -2,12 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="96dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="12dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:id="@+id/card_pertanyaan"
     card_view:cardBackgroundColor="#FFFF"
     card_view:cardCornerRadius="8dp"
     card_view:contentPadding="10dp"
@@ -23,40 +23,65 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/stationName"
+                android:id="@+id/station_title"
                 android:layout_width="181dp"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="68dp"
-                android:text="string" />
+                android:text="@string/station_name"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/networkName"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="category"
-                android:gravity="end|center_vertical"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/station_image"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/station_image"
+                />
 
         </LinearLayout>
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/stationWorks"
+                android:id="@+id/network_name"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="40dp"
                 android:gravity="top"
-                android:text="subtext" />
+                android:text="networkName"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/gpsN"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="top"
+                android:text="gpsn"
+                card_view:layout_constraintTop_toBottomOf="@+id/network_name"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/gpsW"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="top"
+                android:text="gpsw"
+                card_view:layout_constraintTop_toBottomOf="@+id/gpsN"
+                tools:layout_editor_absoluteX="-16dp" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
 

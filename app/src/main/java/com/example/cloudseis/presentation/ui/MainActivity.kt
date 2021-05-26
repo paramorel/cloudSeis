@@ -6,13 +6,13 @@ import com.example.cloudseis.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cloudseis.presentation.ui.navigation.NavigationActivity
-import com.example.cloudseis.services.EventCheckService
+import com.example.cloudseis.services.NotificationService
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //title =
-        startService(Intent(this, EventCheckService::class.java))
+        //startService(Intent(this, NotificationService::class.java))
         setContentView(R.layout.activity_main)
         //val userPreferences = UserPreferences(this)
 

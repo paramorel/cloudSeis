@@ -13,7 +13,11 @@
     <string name="map">Общая карта</string>
     <string name="registrars">Регистраторы</string>
     <string name="settings">Настройки</string>
-    <string name="user">Моя карта</string>
+    <string name="user">Мои станции</string>
     <string name="exit">Выйти из аккаунта</string>
     <string name="account">Аккаунт</string>
+    <string name="station_image">Station image</string>
+    <string name="station_name">Station name</string>
+
+
 </resources>
