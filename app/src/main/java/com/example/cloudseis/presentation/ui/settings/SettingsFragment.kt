@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
 import com.example.cloudseis.data.repository.AuthRepository
 import com.example.cloudseis.databinding.FragmentSettingsBinding
@@ -15,15 +16,19 @@ import kotlinx.coroutines.launch
 
 class SettingsFragment : BaseFragment<AuthViewModel, FragmentSettingsBinding, AuthRepository>(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        binding.exitButton.visibility = View.INVISIBLE
+        //binding.exitButton.visibility = View.INVISIBLE
+        binding.organizationEditText.isEnabled = false
+        binding.networkOwnerEdittext.isEnabled = false
+        binding.editTextTextPersonName.isEnabled = false
+
         super.onActivityCreated(savedInstanceState)
         Log.i("settings fragment", "on activity created")
 
-        binding.exitButton.setOnClickListener {
-            lifecycleScope.launch {
-                logout()
-            }
-        }
+//        binding.exitButton.setOnClickListener {
+//            lifecycleScope.launch {
+//                logout()
+//            }
+//        }
     }
 
     private suspend fun logout(){

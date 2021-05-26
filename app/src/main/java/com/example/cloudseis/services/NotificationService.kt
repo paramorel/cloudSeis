@@ -39,7 +39,7 @@ class NotificationService : Service() {
         )
         val notification: Notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Новое событие cloudSeis")
-            .setContentText("Станция #8 потеряла связь с сервером")
+            .setContentText("Станция #9 потеряла связь с сервером")
             .setSmallIcon(R.drawable.earth)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

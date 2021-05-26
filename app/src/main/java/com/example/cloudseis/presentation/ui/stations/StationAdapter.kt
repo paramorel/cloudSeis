@@ -32,8 +32,8 @@ class StationAdapter(
     override fun onBindViewHolder(holder: StationsViewHolder, position: Int) {
         holder.itemView.apply {
             station_title.text = "Станция #" + stations[position].id.toString()
-            gpsN.text = stations[position].gpsN
-            gpsW.text = stations[position].gpsW
+            gpsN.text = "gpsN: " + stations[position].gpsN
+            gpsW.text = "gpsW: " + stations[position].gpsW
             network_name.text = "Сеть #" + stations[position].networkId
             var state = false
             state = stations[position].haveConnection == "true"

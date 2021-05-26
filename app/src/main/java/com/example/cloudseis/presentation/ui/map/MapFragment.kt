@@ -200,6 +200,7 @@ class MapFragment : OnMapReadyCallback, BaseFragment<RegistrarsViewModel, Fragme
     override fun onMapReady(googleMap: GoogleMap) {
         Log.i("Map Fragment", "on map ready")
         googleMap.mapType = 4
+        googleMap.uiSettings.isRotateGesturesEnabled = false;
         loadNetworks(googleMap)
 
         parseXlsFile(googleMap)
